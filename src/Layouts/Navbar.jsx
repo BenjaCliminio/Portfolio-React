@@ -1,37 +1,30 @@
-import { useState } from "react";
-import { content } from "../Content";
-import { HiMenuAlt2 } from "react-icons/hi";
-import { createElement } from "react";
+import React, { useState } from 'react';
+import { AiOutlineClose, AiOutlineMenu } from 'react-icons/ai';
 
 const Navbar = () => {
-  const { nav } = content;
-  const [showMenu, setShowMenu] = useState(false);
-  const [active, setActive] = useState(0);
+  const [nav, setNav] = useState(false);
+
+  const handleNav = () => {
+    setNav(!nav);
+  };
 
   return (
-    <div className="w-full flex justify-center">
-      <div
-        className="sm:cursor-pointer fixed top-10 left-10 z-[999] rounded-lg bg-white/40 p-2"
-        onClick={() => setShowMenu(!showMenu)}
-      >
-        <HiMenuAlt2 size={34} />
+    <div className='flex justify-between items-center h-24 max-w-[1240px] mx-auto px-4 text-white'>
+      <h1 className='w-full text-3xl font-bold text-[#00df9a]'>Benjamin Climiño</h1>
+      <ul className='hidden md:flex'>
+        <li className='p-4 hover:border-b-2 border-[#00df9a]'>Home</li>
+        <li className='p-4 hover:border-b-2 border-[#00df9a]'>Proyects</li>
+        <li className='p-4 hover:border-b-2 border-[#00df9a]'>Service</li>
+      </ul>
+      <div onClick={handleNav} className='block md:hidden'>
+          {nav ? <AiOutlineClose size={20}/> : <AiOutlineMenu size={20} />}
       </div>
-      <nav
-        className={`fixed  z-[999] flex items-center gap-5 bg-slate-200/60 px-6 py-3 backdrop-blur-md rounded-full text-dark_primary duration-300 ${
-          showMenu ? "bottom-10" : "bottom-[-100%]"
-        }`}
-      >
-        {nav.map((item, i) => (
-          <a
-            href={item.link}
-            onClick={() => setActive(i)}
-            className={`text-xl p-2.5 rounded-full sm:cursor-pointer 
-     ${i === active && "bg-dark_primary text-white"} `}
-          >
-            {createElement(item.icon)}
-          </a>
-        ))}
-      </nav>
+      <ul className={nav ? 'fixed left-0 top-0 w-[60%] h-full border-r border-r-gray-900 bg-[#000300] ease-in-out duration-500' : 'ease-in-out duration-500 fixed left-[-100%]'}>
+        <h1 className='w-full text-3xl font-bold text-[#00df9a] m-4'>Benjamin Climiño</h1>
+          <li className='p-4 border-b border-gray-600'>Home</li>
+          <li className='p-4 border-b border-gray-600'>Proyects</li>
+          <li className='p-4 border-b border-gray-600'>Service</li>
+      </ul>
     </div>
   );
 };
